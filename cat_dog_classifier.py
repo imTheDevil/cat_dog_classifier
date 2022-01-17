@@ -154,3 +154,20 @@ test_images, _ = next(test_data_gen)
 #Predicting with test data
 probabilities = np.argmax(model.predict(test_data_gen), axis=-1)
 plotImages(test_images, probabilities=probabilities)
+
+#Verifying results
+answers =  [1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0,
+            1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0,
+            1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1,
+            1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 
+            0, 0, 0, 0, 0, 0]
+
+correct = 0
+
+for probability, answer in zip(probabilities, answers):
+  if round(probability) == answer:
+    correct +=1
+
+percentage_identified = (correct / len(answers))
+
+print(f"Your model correctly identified {round(percentage_identified*100, 2)}% of the images of cats and dogs.")
